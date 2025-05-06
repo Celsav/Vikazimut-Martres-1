@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html {
+            font-size: 14pt;
+        }
+
+        /* Taille du sélecteur et de la police */
+        select {
+            padding: 8px 0px;
+        }
+
+        select option {
+            font-size: 13pt;
+        }    </style>
+
+    <!-- Script pour récupérer la réponse -->
+    <script>
+        function sendResult(point, element, messageSuccess, messageFailure) {
+            /* Disactiver le selecteur pour empecher plusieurs réponses */
+            document.getElementById(element).disabled = true;
+            if (point === "0") {
+                document.getElementById("result-text").innerText = messageFailure;
+            } else {
+                document.getElementById("result-text").innerText = messageSuccess;
+            }
+            /* Cette ligne permet de passer le nombre de points à l'application */
+            Vikazimut.postMessage(point);
+        }
+    </script>
+</head>
+
+<body>
+<!-- Le corps de la page -->
+
+<h2>Rue Louise Thèbe</h2>
+<p><img src="martres-tolosane-petite-rue-eglise©oti.jpg.webp"></p>
+<p>Cette rue, l'une des plus anciennes de la ville, a récemment été nommée rue Louise Thèbe, du nom d'une Martraise reconnue "Juste pour la Nation" pour avoir sauvé des enfants juifs pendant la seconde guerre mondiale.</p>
+
+<h2>Question</h2>
+<p>Quel nom cette rue a-t-elle porté?&nbsp;?</p>
+<!-- 3 solutions possibles; la 2e est la bonne réponse-->
+<select id="selection-fr" onchange="if (this.selectedIndex) sendResult(this.value, 'selection-fr', 'Bravo', 'Faux');">
+    <option value="-1">Choisissez une réponse</option>
+    <option value="0">Grand' rue de l'Eglise</option>
+    <option value="1">Rue De Ferran</option>
+    <option value="0">Rue du Grand Presbytère</option>
+</select>
+<div id="result-text" style="color: red"></div>
+
+</body>
+</html>
